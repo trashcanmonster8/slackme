@@ -11,6 +11,9 @@ module.exports = {
             "asyncArrow": "always"
         }],
         "template-curly-spacing": [2, "always"]
+    },
+    "env": {
+        "mocha": true
     }
 };
 // SIG // Begin signature block
