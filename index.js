@@ -10,8 +10,8 @@ dotenv.config({ path: ENV_FILE });
 
 const restify = require('restify');
 
-const appInsights = require('applicationinsights');
-appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY).start();
+const { ApplicationInsightsTelemetryClient, ApplicationInsightsWebserverMiddleware } = require('botbuilder-applicationinsights');
+const appInsightsClient = new ApplicationInsightsTelemetryClient(process.env.APPINSIGHTS_INSTRUMENTATIONKEY);
 
 // Import required bot services.
 // See https://aka.ms/bot-services to learn more about the different parts of a bot.
@@ -22,6 +22,8 @@ const { EchoBot } = require('./bot');
 
 // Create HTTP server
 const server = restify.createServer();
+server.use(ApplicationInsightsWebserverMiddleware);
+server.use(restify.plugins.bodyParser());
 server.listen(process.env.port || process.env.PORT || 3978, () => {
     console.log(`\n${ server.name } listening to ${ server.url }`);
     console.log('\nGet Bot Framework Emulator: https://aka.ms/botframework-emulator');
@@ -66,6 +68,12 @@ const myBot = new EchoBot();
 // Listen for incoming requests.
 server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
+        appInsightsClient.trackTrace({
+            message: 'request',
+            properties: {
+                body: JSON.stringify(req.body)
+            }
+        });
         // Route to main dialog.
         await myBot.run(context);
     });

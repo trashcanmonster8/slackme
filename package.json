@@ -16,8 +16,8 @@
         "url": "https://github.com"
     },
     "dependencies": {
-        "applicationinsights": "^1.8.10",
         "botbuilder": "~4.11.1",
+        "botbuilder-applicationinsights": "^4.11.1",
         "dotenv": "^8.2.0",
         "restify": "~8.5.1"
     },
