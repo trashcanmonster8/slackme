@@ -11,7 +11,7 @@ dotenv.config({ path: ENV_FILE });
 const restify = require('restify');
 
 const appInsights = require('applicationinsights');
-appInsights.setup('025f61cc-1fd0-431e-bd2b-005657a90c61').start();
+appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY).start();
 
 // Import required bot services.
 // See https://aka.ms/bot-services to learn more about the different parts of a bot.
