@@ -3,7 +3,7 @@
 
 const { ActivityHandler, MessageFactory } = require('botbuilder');
 
-class EchoBot extends ActivityHandler {
+class SlackMe extends ActivityHandler {
     constructor() {
         super();
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
@@ -20,7 +20,7 @@ class EchoBot extends ActivityHandler {
     }
 }
 
-module.exports.EchoBot = EchoBot;
+module.exports.SlackMe = SlackMe;
 
 // SIG // Begin signature block
 // SIG // MIInKwYJKoZIhvcNAQcCoIInHDCCJxgCAQExDzANBglg

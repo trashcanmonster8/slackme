@@ -1,11 +1,11 @@
 const { TestAdapter } = require('botbuilder');
-const { EchoBot } = require('../bot');
+const { SlackMe } = require('../bot');
 const slackActivity = require('./slackActivity.json');
 const groupMeActivity = require('./groupMeActivity.json');
 const { strictEqual, deepStrictEqual } = require('assert');
 
 describe('slackme', () => {
-    const bot = new EchoBot();
+    const bot = new SlackMe();
     const adapter = new TestAdapter((context) => bot.run(context));
     describe('slack to groupme', () => {
         it('does not change the text', async () => {

@@ -18,7 +18,7 @@ const appInsightsClient = new ApplicationInsightsTelemetryClient(process.env.APP
 const { BotFrameworkAdapter } = require('botbuilder');
 
 // This bot's main dialog.
-const { EchoBot } = require('./bot');
+const { SlackMe } = require('./bot');
 
 // Create HTTP server
 const server = restify.createServer();
@@ -63,7 +63,7 @@ const onTurnErrorHandler = async (context, error) => {
 adapter.onTurnError = onTurnErrorHandler;
 
 // Create the main dialog.
-const myBot = new EchoBot();
+const myBot = new SlackMe();
 
 // Listen for incoming requests.
 server.post('/api/messages', (req, res) => {
