@@ -9,8 +9,7 @@ class EchoBot extends ActivityHandler {
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
         this.onMessage(async (context, next) => {
             context.activity.serviceUrl = 'https://groupme.botframework.com/';
-            const replyText = `Echo: ${ context.activity.text }`;
-            await context.sendActivity(MessageFactory.text(replyText, replyText));
+            await context.sendActivity(MessageFactory.text(context.activity.text, context.activity.text));
             // By calling next() you ensure that the next BotHandler is run.
             await next();
         });
