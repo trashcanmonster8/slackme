@@ -17,4 +17,9 @@ describe('slackme', () => {
                 .startTest();
         });
     });
+    describe('groupme to slack', () => {
+        it('does not change the text', async () => {
+            await adapter.test(groupMeActivity.text, groupMeActivity.text).startTest();
+        });
+    });
 });
