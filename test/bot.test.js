@@ -2,7 +2,7 @@ const { TestAdapter } = require('botbuilder');
 const { EchoBot } = require('../bot');
 const slackActivity = require('./slackActivity.json');
 const groupMeActivity = require('./groupMeActivity.json');
-const { strictEqual } = require('assert');
+const { strictEqual, deepStrictEqual } = require('assert');
 
 describe('slackme', () => {
     const bot = new EchoBot();
@@ -14,6 +14,11 @@ describe('slackme', () => {
         it('converts the service url', async () => {
             await adapter.send(slackActivity)
                 .assertReply((expected) => strictEqual(expected.serviceUrl, groupMeActivity.serviceUrl))
+                .startTest();
+        });
+        it('converts conversation object', async () => {
+            await adapter.send(slackActivity)
+                .assertReply((expected) => deepStrictEqual(expected.conversation, groupMeActivity.conversation))
                 .startTest();
         });
     });
