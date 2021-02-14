@@ -1,17 +1,17 @@
-const { DialogTestClient } = require('botbuilder-testing');
 const { TestAdapter } = require('botbuilder');
 const { EchoBot } = require('../bot');
-const { ok } = require('assert');
+const slackActivity = require('./slackActivity.json');
+const groupMeActivity = require('./groupMeActivity.json');
+const { strictEqual } = require('assert');
 
 describe('slackme', () => {
     const bot = new EchoBot();
-    const adapter = new TestAdapter(bot);
-    const client = new DialogTestClient(adapter);
-    it('forwards messages from slack to groupme', async () => {
-        await client.sendActivity({
-            text: 'slack message',
-            serviceUrl: 'something'
+    const adapter = new TestAdapter((context) => bot.run(context));
+    describe('slack to groupme', () => {
+        it('converts the service url', async () => {
+            await adapter.send(slackActivity)
+                .assertReply((expected) => strictEqual(expected.serviceUrl, groupMeActivity.serviceUrl))
+                .startTest();
         });
-        ok(true);
     });
 });
