@@ -7,11 +7,11 @@ const settings = readSettingsFile(appSettingPath, envPath);
 const env = process.env;
 
 const envNames = Object.keys(env)
-    .filter(function(x){ return x.indexOf("APPSETTING_") === 0;})
-    .filter(function(x){ return x.indexOf("APPSETTING_WEBSITE_") < 0; });
-const appSettings = envNames.reduce(function(cur, key) { return {...cur, [key.substring(11)]: env[key]};}, {});
+    .filter(function(x) { return x.indexOf('APPSETTING_') === 0; })
+    .filter(function(x) { return x.indexOf('APPSETTING_WEBSITE_') < 0; });
+const appSettings = envNames.reduce(function(cur, key) { return { ...cur, [key.substring(11)]: env[key] }; }, {});
 
-const newSettings = {...settings, ...appSettings};
+const newSettings = { ...settings, ...appSettings };
 
 updateSettingsFile(appSettingPath, envPath, newSettings);
 
@@ -52,9 +52,9 @@ function updateSettingsFile(appSettingPath, envPath, settings) {
         const lines = keys.reduce(function(cur, key) {
             return [...cur, key + '=' + settings[key]];
         }, []);
-        fs.writeFileSync(envPath, lines.join('\n'), {encoding: 'utf-8'});
+        fs.writeFileSync(envPath, lines.join('\n'), { encoding: 'utf-8' });
     } else {
-        fs.writeFileSync(appSettingPath, JSON.stringify(settings, null, 2), {encoding: 'utf-8'});
+        fs.writeFileSync(appSettingPath, JSON.stringify(settings, null, 2), { encoding: 'utf-8' });
     }
 }
 
