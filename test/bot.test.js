@@ -1,30 +1,17 @@
 const { TestAdapter } = require('botbuilder');
 const { SlackMe } = require('../bot');
-const slackActivity = require('./slackActivity.json');
+const slackActvity = require('./slackActivity.json');
 const groupMeActivity = require('./groupMeActivity.json');
-const { strictEqual, deepStrictEqual } = require('assert');
 
 describe('slackme', () => {
     const bot = new SlackMe();
-    const adapter = new TestAdapter((context) => bot.run(context));
-    describe('slack to groupme', () => {
-        it('does not change the text', async () => {
-            await adapter.test(slackActivity.text, slackActivity.text).startTest();
+    const adapter = new TestAdapter((context) => bot.run(context)); ;
+    describe('', () => {
+        it('does not change the text for slack to groupme', async () => {
+            await adapter.send(slackActvity).assertReply(slackActvity.text).startTest();
         });
-        it('converts the service url', async () => {
-            await adapter.send(slackActivity)
-                .assertReply((expected) => strictEqual(expected.serviceUrl, groupMeActivity.serviceUrl))
-                .startTest();
-        });
-        it('converts conversation object', async () => {
-            await adapter.send(slackActivity)
-                .assertReply((expected) => deepStrictEqual(expected.conversation, groupMeActivity.conversation))
-                .startTest();
-        });
-    });
-    describe('groupme to slack', () => {
-        it('does not change the text', async () => {
-            await adapter.test(groupMeActivity.text, groupMeActivity.text).startTest();
+        it('does not change the text for  groupme to slack', async () => {
+            await adapter.send(groupMeActivity).assertReply(groupMeActivity.text).startTest();
         });
     });
 });
